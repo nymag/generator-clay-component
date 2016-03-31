@@ -136,14 +136,13 @@ module.exports = generators.Base.extend({
           process.exit(1);
         }
 
-        log(chalk.green('Folder created! ') + chalk.grey(folder));
+        log(chalk.grey('Wrote ' + folder));
         done();
       }).bind(this);
     },
 
     createStyles: function () {
-      // create all.css and print.css
-      var name = this.name,
+      const name = this.name,
         folder = this.folder,
         styles = [
           'all.css',
@@ -152,7 +151,40 @@ module.exports = generators.Base.extend({
 
       _.each(styles, function (style) {
         this.fs.copyTpl(this.templatePath(style), path.join(folder, style), { name: name });
+        this.log(chalk.dim('Wrote ' + path.join(folder, style)));
       }.bind(this));
     },
+
+    createTemplate: function () {
+      const name = this.name,
+        folder = this.folder,
+        tag = _.get(this, 'answers.tag'),
+        tpl = 'template.nunjucks';
+
+      if (tag === 'comment') {
+        // copy over the meta component template
+        this.fs.copyTpl(this.templatePath('comment.nunjucks'), path.join(folder, tpl), { name: name });
+        this.log(chalk.dim('Wrote ' + path.join(folder, tpl)));
+      } else {
+        // copy over the regular template
+        this.fs.copyTpl(this.templatePath(tpl), path.join(folder, tpl), { name: name, tag: tag });
+        this.log(chalk.dim('Wrote ' + path.join(folder, tpl)));
+      }
+    },
+
+    createData: function () {
+      const name = this.name,
+        folder = this.folder,
+        desc = _.get(this, 'answers.desc');
+
+      this.fs.copyTpl(this.templatePath('schema.yml'), path.join(folder, 'schema.yml'), { desc: desc });
+      this.log(chalk.dim('Wrote ' + path.join(folder, 'schema.yml')));
+      this.fs.copyTpl(this.templatePath('bootstrap.yml'), path.join(folder, 'bootstrap.yml'), { name: name });
+      this.log(chalk.dim('Wrote ' + path.join(folder, 'bootstrap.yml')));
+    }
+  },
+
+  end: function () {
+    this.log(chalk.green('Component ' + chalk.bold(this.name) + ' created!'));
   }
 });

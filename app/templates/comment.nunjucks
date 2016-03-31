@@ -1,0 +1,4 @@
+<!-- data-uri="{{ _ref or _self }}" -->
+
+{# add your component internals below #}
+<meta name="<%= name %>" content="">

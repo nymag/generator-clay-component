@@ -1,0 +1,5 @@
+_description: |
+  <%= desc %>
+
+# add your fields below!
+# for more info, see: https://github.com/nymag/clay-kiln/tree/master/behaviors#field-properties

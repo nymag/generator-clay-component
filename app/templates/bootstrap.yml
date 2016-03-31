@@ -1,0 +1,5 @@
+components:
+  <%= name %>:
+    # add your default values here
+    # they will be cloned into new component instances
+    # whenever you POST to /components/<%= name %>/instances
