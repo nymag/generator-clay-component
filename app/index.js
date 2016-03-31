@@ -3,7 +3,11 @@ const generators = require('yeoman-generator'),
   optionOrPrompt = require('yeoman-option-or-prompt'),
   chalk = require('chalk'),
   fs = require('fs'),
-  _ = require('lodash');
+  _ = require('lodash'),
+  descMessage = 'What does this component do?',
+  tagMessage = 'What tag should this component use?',
+  clientMessage = 'Does it need client-side javascript?',
+  serverMessage = 'Does it need server-side javascript?';
 
 module.exports = generators.Base.extend({
   // allow us to pass options OR use the interactive prompts
@@ -12,9 +16,11 @@ module.exports = generators.Base.extend({
   constructor: function () {
     generators.Base.apply(this, arguments);
 
-    this.on('error', function () {
-      this.log(chalk.red('Wait a minute!') + ' You need to provide a name, e.g. ' + chalk.inverse(' yo clay-component ' + chalk.bold('foobar') + ' '));
-      process.exit(1);
+    this.on('error', function (e) {
+      if (_.includes(e.message, 'Did not provide required argument')) {
+        this.log(chalk.red('Wait a minute!') + ' You need to provide a name, e.g. ' + chalk.inverse(' yo clay-component ' + chalk.bold('foobar') + ' '));
+        process.exit(1);
+      }
     });
 
     // add name as an argument, since we need to check if the component exists
@@ -30,28 +36,28 @@ module.exports = generators.Base.extend({
 
     // --desc or -d
     this.option('desc', {
-      desc: 'One-line component description, in github-flavored markdown. Can be expanded later.',
+      desc: descMessage,
       alias: 'd',
       type: String
     });
 
     // --tag or -t
     this.option('tag', {
-      desc: 'What tag should this component use? Options are comment, section, aside, div.',
+      desc: tagMessage,
       alias: 't',
       type: String
     });
 
     // --client or -c
     this.option('client', {
-      desc: 'Does this component need client-side javascript?',
+      desc: clientMessage,
       alias: 'c',
       type: Boolean
     });
 
     // --server or -s
     this.option('server', {
-      desc: 'Does this component need server-side javascript?',
+      desc: serverMessage,
       alias: 's',
       type: Boolean
     });
@@ -68,5 +74,50 @@ module.exports = generators.Base.extend({
         process.exit(1);
       }
     }
+  },
+
+  prompting: function () {
+    var done = this.async();
+
+    this._optionOrPrompt([{
+      name: 'desc',
+      message: descMessage,
+      type: 'input'
+    }, {
+      name: 'tag',
+      message: tagMessage,
+      type: 'list',
+      default: 1,
+      choices: [{
+        name: chalk.magenta('<!-- comment -->') + ' used for components that live in the <head>',
+        value: 'comment',
+        short: '<!-- comment -->'
+      }, {
+        name: chalk.magenta('<aside>') + ' used for components connected tangentially with the main content',
+        value: 'aside',
+        short: '<aside>'
+      }, {
+        name: chalk.magenta('<section>') + ' used for components the contain semantic content',
+        value: 'section',
+        short: '<section>'
+      }, {
+        name: chalk.magenta('<div>') + ' a catch-all for non-semantic components',
+        value: 'div',
+        short: '<div>'
+      }]
+    }, {
+      name: 'client',
+      message: clientMessage,
+      type: 'confirm',
+      default: false
+    }, {
+      name: 'server',
+      message: serverMessage,
+      type: 'confirm',
+      default: false
+    }], function (answers) {
+      this.log(answers)
+      done();
+    }.bind(this));
   }
 });
