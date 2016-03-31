@@ -3,7 +3,9 @@ const generators = require('yeoman-generator'),
   optionOrPrompt = require('yeoman-option-or-prompt'),
   chalk = require('chalk'),
   fs = require('fs'),
+  mkdirp = require('mkdirp'),
   _ = require('lodash'),
+  path = require('path'),
   descMessage = 'What does this component do?',
   tagMessage = 'What tag should this component use?',
   clientMessage = 'Does it need client-side javascript?',
@@ -31,6 +33,7 @@ module.exports = generators.Base.extend({
       type: String
     });
     this.fancyName = this.name.split('-').map(_.startCase).join(' '); // foo-bar → Foo Bar
+    this.folder = this.destinationPath('components', this.name);
 
     // add options
 
@@ -77,7 +80,7 @@ module.exports = generators.Base.extend({
   },
 
   prompting: function () {
-    var done = this.async();
+    const done = this.async();
 
     this._optionOrPrompt([{
       name: 'desc',
@@ -116,8 +119,40 @@ module.exports = generators.Base.extend({
       type: 'confirm',
       default: false
     }], function (answers) {
-      this.log(answers)
+      this.answers = answers;
       done();
     }.bind(this));
+  },
+
+  writing: {
+    createFolder: function () {
+      const done = this.async(),
+        log = this.log,
+        folder = this.folder;
+
+      mkdirp(folder, function (err) {
+        if (err) {
+          log(chalk.red('ERROR:') + ' Could not create folder: ' + chalk.grey(folder));
+          process.exit(1);
+        }
+
+        log(chalk.green('Folder created! ') + chalk.grey(folder));
+        done();
+      }).bind(this);
+    },
+
+    createStyles: function () {
+      // create all.css and print.css
+      var name = this.name,
+        folder = this.folder,
+        styles = [
+          'all.css',
+          'print.css'
+        ];
+
+      _.each(styles, function (style) {
+        this.fs.copyTpl(this.templatePath(style), path.join(folder, style), { name: name });
+      }.bind(this));
+    },
   }
 });
