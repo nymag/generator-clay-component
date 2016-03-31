@@ -24,7 +24,10 @@
   },
   "homepage": "https://github.com/nymag/generator-clay-component#readme",
   "dependencies": {
-    "yeoman-generator": "^0.22.5"
+    "chalk": "^1.1.3",
+    "lodash": "^4.7.0",
+    "yeoman-generator": "^0.22.5",
+    "yeoman-option-or-prompt": "^1.0.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
