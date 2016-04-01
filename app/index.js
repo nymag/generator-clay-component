@@ -138,7 +138,7 @@ module.exports = generators.Base.extend({
 
         log(chalk.grey('Wrote ' + folder));
         done();
-      }).bind(this);
+      });
     },
 
     createStyles: function () {
@@ -151,7 +151,6 @@ module.exports = generators.Base.extend({
 
       _.each(styles, function (style) {
         this.fs.copyTpl(this.templatePath(style), path.join(folder, style), { name: name });
-        this.log(chalk.dim('Wrote ' + path.join(folder, style)));
       }.bind(this));
     },
 
@@ -164,11 +163,9 @@ module.exports = generators.Base.extend({
       if (tag === 'comment') {
         // copy over the meta component template
         this.fs.copyTpl(this.templatePath('comment.nunjucks'), path.join(folder, tpl), { name: name });
-        this.log(chalk.dim('Wrote ' + path.join(folder, tpl)));
       } else {
         // copy over the regular template
         this.fs.copyTpl(this.templatePath(tpl), path.join(folder, tpl), { name: name, tag: tag });
-        this.log(chalk.dim('Wrote ' + path.join(folder, tpl)));
       }
     },
 
@@ -178,9 +175,7 @@ module.exports = generators.Base.extend({
         desc = _.get(this, 'answers.desc');
 
       this.fs.copyTpl(this.templatePath('schema.yml'), path.join(folder, 'schema.yml'), { desc: desc });
-      this.log(chalk.dim('Wrote ' + path.join(folder, 'schema.yml')));
       this.fs.copyTpl(this.templatePath('bootstrap.yml'), path.join(folder, 'bootstrap.yml'), { name: name });
-      this.log(chalk.dim('Wrote ' + path.join(folder, 'bootstrap.yml')));
     }
   },
 
