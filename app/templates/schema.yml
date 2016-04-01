@@ -1,5 +1,13 @@
 _description: |
   <%= desc %>
 
+  # Your description (and the fields you add, below) will be used to generate a component README.md
+  # the next time you commit your code.
+  #
+  # Feel free to expand on this, adding functionality, business use cases,
+  # and any gotchas you find when developing it.
+  #
+  # You can use the full power of github-flavored markdown here.
+
 # add your fields below!
 # for more info, see: https://github.com/nymag/clay-kiln/tree/master/behaviors#field-properties
