@@ -26,7 +26,7 @@ The generator will ask you a few short questions, then spin up the new component
 1. **What does this component do?** – Write a short, one-line description of your component
 2. **What tag should this component use?** – Select the tag you want to use (or `comment`, for a component that lives in the `<head>`)
 3. **Does it need client-side javascript?** – This will create a `client.js` with a [dollar-slice](https://github.com/nymag/dollar-slice) controller
-4. **Does it need server-side javascript?** – This will create a `server.js` and `server.test.js` for you do logic on `GET`s and `PUT`s
+4. **Does it need server-side javascript?** – This will create a `server.js` and `server.test.js` for you do logic on `GET` and `PUT`
 
 _Interactive prompts are nice, but who has the time? My twitter feed won't read itself!_
 
