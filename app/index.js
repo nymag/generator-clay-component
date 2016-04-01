@@ -186,6 +186,17 @@ module.exports = generators.Base.extend({
       if (client) {
         this.fs.copyTpl(this.templatePath('client.js'), path.join(folder, 'client.js'), { name: name });
       }
+    },
+
+    createServerJs: function () {
+      const name = this.name,
+        folder = this.folder,
+        server = _.get(this, 'answers.server');
+
+      if (server) {
+        this.fs.copyTpl(this.templatePath('server.js'), path.join(folder, 'server.js'), { name: name });
+        this.fs.copy(this.templatePath('server.test.js'), path.join(folder, 'server.test.js'));
+      }
     }
   },
 

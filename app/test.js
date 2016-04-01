@@ -111,4 +111,18 @@ describe('clay-component', function () {
       assert.fileContent(file, 'DS.controller(\'foo\',');
     });
   });
+
+  describe('with server', function () {
+    before(function (done) {
+      run({server: true}, done);
+    });
+
+    it('creates server js', function () {
+      assert.file(path.join(folder, 'server.js'));
+    });
+
+    it('creates server test js', function () {
+      assert.file(path.join(folder, 'server.test.js'));
+    });
+  });
 });
