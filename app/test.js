@@ -98,4 +98,17 @@ describe('clay-component', function () {
       assert.fileContent(path.join(folder, schema), 'cool');
     });
   });
+
+  describe('with client', function () {
+    before(function (done) {
+      run({client: true}, done);
+    });
+
+    it('creates client js', function () {
+      let file = path.join(folder, 'client.js');
+
+      assert.file(file);
+      assert.fileContent(file, 'DS.controller(\'foo\',');
+    });
+  });
 });

@@ -176,6 +176,16 @@ module.exports = generators.Base.extend({
 
       this.fs.copyTpl(this.templatePath('schema.yml'), path.join(folder, 'schema.yml'), { desc: desc });
       this.fs.copyTpl(this.templatePath('bootstrap.yml'), path.join(folder, 'bootstrap.yml'), { name: name });
+    },
+
+    createClientJs: function () {
+      const name = this.name,
+        folder = this.folder,
+        client = _.get(this, 'answers.client');
+
+      if (client) {
+        this.fs.copyTpl(this.templatePath('client.js'), path.join(folder, 'client.js'), { name: name });
+      }
     }
   },
 
