@@ -40,7 +40,7 @@ You can also use command line flags for all of these options:
 If you're a speed daemon, your component might look like this:
 
 ```bash
-yo clay-component fizz-buzz-enterprise -d "FizzBuzz Enterprise Edition is a no-nonsense implementation of FizzBuzz made by serious businessmen for serious business purposes" -t article -cs
+yo clay-component fizz-buzz-enterprise -d "FizzBuzz Enterprise Edition" -t article -cs
 ```
 
 # Contributing
