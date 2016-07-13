@@ -1,0 +1,9 @@
+.<%= name %> {
+  // add your styles here!
+
+  @media print {
+    // components are hidden by default when printing
+    // to add print styles, remove the rule below
+    display: none;
+  }
+}
