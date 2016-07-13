@@ -7,8 +7,7 @@ const path = require('path'),
   assert = require('yeoman-assert'),
   folder = path.join('components', 'foo'),
   tpl = 'template.nunjucks',
-  all = 'all.css',
-  print = 'print.css',
+  styles = 'styles.scss',
   schema = 'schema.yml',
   bootstrap = 'bootstrap.yml';
 
@@ -35,18 +34,18 @@ describe('clay-component', function () {
       assert.file(folder);
     });
 
-    it('adds all.css', function () {
-      const file = path.join(folder, all);
+    it('adds styles.scss', function () {
+      const file = path.join(folder, styles);
 
       assert.file(file);
       assert.fileContent(file, '.foo {');
     });
 
-    it('adds print.css', function () {
-      const file = path.join(folder, print);
+    it('adds print styles', function () {
+      const file = path.join(folder, styles);
 
       assert.file(file);
-      assert.fileContent(file, '.foo {');
+      assert.fileContent(file, '@media print {');
     });
 
     it('adds template.nunjucks', function () {
