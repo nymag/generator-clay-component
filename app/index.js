@@ -144,14 +144,9 @@ module.exports = generators.Base.extend({
     createStyles: function () {
       const name = this.name,
         folder = this.folder,
-        styles = [
-          'all.css',
-          'print.css'
-        ];
+        styles = 'styles.scss';
 
-      _.each(styles, function (style) {
-        this.fs.copyTpl(this.templatePath(style), path.join(folder, style), { name: name });
-      }.bind(this));
+      this.fs.copyTpl(this.templatePath(styles), path.join(folder, styles), { name: name });
     },
 
     createTemplate: function () {
