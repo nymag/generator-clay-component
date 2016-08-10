@@ -1,8 +1,6 @@
 'use strict';
-/* eslint max-nested-callbacks:[2,5] */
 
-var sinon = require('sinon'),
-  expect = require('chai').expect,
+const expect = require('chai').expect,
   dirname = __dirname.split('/').pop(),
   filename = __filename.split('/').pop().split('.').shift(),
   lib = require('./' + filename);
@@ -10,18 +8,8 @@ var sinon = require('sinon'),
 describe(dirname, function () {
   describe(filename, function () {
     // describe('get', function () {
-    //   var sandbox;
-    //
-    //   beforeEach(function () {
-    //     sandbox = sinon.sandbox.create();
-    //   });
-    //
-    //   afterEach(function () {
-    //     sandbox.restore();
-    //   });
-    //
     //   it('gets some data', function () {
-    //     var ref = 'some ref';
+    //     const ref = 'some ref';
     //
     //     return lib(ref).then(function (data) {
     //       // if you do dynamic things on the GET, uncomment this block
@@ -32,24 +20,17 @@ describe(dirname, function () {
     // });
 
     describe('put', function () {
-      var fn = lib[this.title],
-        sandbox;
-
-      beforeEach(function () {
-        sandbox = sinon.sandbox.create();
-      });
-
-      afterEach(function () {
-        sandbox.restore();
-      });
+      const fn = lib[this.title];
 
       it('updates self on empty data', function () {
-        var ref = 'some ref',
+        const ref = 'some ref',
           data = {};
 
-        return fn(ref, data).then(function (ops) {
+        function expectOperations(ops) {
           expect(ops).to.deep.equal([{ type: 'put', key: ref, value: JSON.stringify(data) }]);
-        });
+        }
+
+        return fn(ref, data).then(expectOperations);
       });
 
       // add other tests for anything else you need to do on the PUT below
