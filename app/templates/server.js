@@ -9,6 +9,7 @@
 function updateSelf(ref, data) {
   return Promise.resolve({
     key: ref,
+    type: 'put',
     value: JSON.stringify(data)
   });
 }
