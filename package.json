@@ -1,6 +1,6 @@
 {
   "name": "generator-clay-component",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A yeoman generator for Clay components!",
   "files": [
     "app"
