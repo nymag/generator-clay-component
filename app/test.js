@@ -6,7 +6,7 @@ const path = require('path'),
   test = require('yeoman-test'),
   assert = require('yeoman-assert'),
   folder = path.join('components', 'foo'),
-  tpl = 'template.nunjucks',
+  tpl = 'template.hbs',
   styles = 'styles.scss',
   schema = 'schema.yml',
   bootstrap = 'bootstrap.yml';
@@ -84,7 +84,7 @@ describe('clay-component', function () {
     });
 
     it('sets tag', function () {
-      assert.fileContent(path.join(folder, tpl), '<!-- data-uri="{{ _ref or _self }}" -->');
+      assert.fileContent(path.join(folder, tpl), '<!-- data-uri="{{ default _ref _self }}" -->');
     });
   });
 

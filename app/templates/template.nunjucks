@@ -1,5 +1,0 @@
-<<%= tag %> data-uri="{{ _ref or _self }}" class="<%= name %>">
-
-  {# add your component internals here #}
-
-</<%= tag %>>
