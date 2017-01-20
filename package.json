@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "eslint": "^2.5.3",
+    "eslint": "^3.14.0",
     "mocha": "^2.4.5",
     "yeoman-assert": "^2.1.2",
     "yeoman-test": "^1.1.0"
