@@ -153,11 +153,11 @@ module.exports = generators.Base.extend({
       const name = this.name,
         folder = this.folder,
         tag = _.get(this, 'answers.tag'),
-        tpl = 'template.handlebars';
+        tpl = 'template.hbs';
 
       if (tag === 'comment') {
         // copy over the meta component template
-        this.fs.copyTpl(this.templatePath('comment.handlebars'), path.join(folder, tpl), { name: name });
+        this.fs.copyTpl(this.templatePath('comment.hbs'), path.join(folder, tpl), { name: name });
       } else {
         // copy over the regular template
         this.fs.copyTpl(this.templatePath(tpl), path.join(folder, tpl), { name: name, tag: tag });
